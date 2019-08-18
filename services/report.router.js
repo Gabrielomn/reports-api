@@ -2,7 +2,9 @@ const express = require('express')
 const reportController = require('./report.controller')
 const bodyParser = require('body-parser')
 const router = express.Router()
+const authMiddleware = require('../middleware/auth')
 
+router.use(authMiddleware)
 router.use(bodyParser.json())
 
 router.post('/', reportController.create)

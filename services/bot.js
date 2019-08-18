@@ -47,11 +47,17 @@ const sendReports = async function(req, res){
     const sender = req.body.entry[0].messaging[0].sender.id
     const theme = req.body.entry[0].messaging[0].message.text
     let reports = await repository.getByTheme(theme)
-    let response = replies.carousel
+    let response
+    console.log(reports)
+    if(reports.length != 0){
+        response = replies.carousel
+        response.message.attachment.payload.elements = getGenerics(reports)
+
+    }else{
+        response = replies.apology
+    }
     response.recipient.id = sender
-    response.message.attachment.payload.elements = getGenerics(reports)
     axios.post(facebookUrl,response).then(() => {
-        console.log("done")
         res.status(200).send('EVENT_RECEIVED')
     }).catch(err => {
         console.log(err)
@@ -60,7 +66,6 @@ const sendReports = async function(req, res){
 
 const getGenerics = function(reports){
     let output = [];
-    console.log(reports.length)
     for(let i = 0; i < min(10,reports.length); i++){
         let report = reports[i]
         output[i] = genericBuilder(report.title, report.description, report.link, report.imgLink)
@@ -84,8 +89,6 @@ const genericBuilder = function(title, description, link, imgLink){
         "default_action":{
             "type":"web_url",
             "url":link,
-            "messenger_extensions":true,
-            "webview_height_ratio":"COMPACT"
         }
     }
 }

@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 exports.create = async(req, res) => {
     let report = await repository.create(req.body)
     if(report){
-        console.log('Sucess, created!')
         res.status(201).send(report)
     }else{
         res.status(400).json("something went wrong")
@@ -15,7 +14,6 @@ exports.create = async(req, res) => {
 exports.update = async(req, res) => {
     let report = await repository.update(req.params.id, req.body)
     if(report){
-        console.log('updated')
         res.status(200).send(report)
     }else{
         res.status(400).json("Something went wrong")

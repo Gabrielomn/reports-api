@@ -30,3 +30,9 @@ exports.getByID = async(id) =>{
 exports.delete = async(id) => {
     await Report.findByIdAndDelete({_id:id})
 }
+
+exports.getByTheme = async(theme) => {
+    console.log(theme)
+    let reports = await Report.find({theme:theme})
+    return reports
+}

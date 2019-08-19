@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const authConfig = require('../config/authConfig.json')
 router.post('/', (req, res) => {
     const pin = req.body.pin
-    if(pin != "El Psy Congroo"){
+    if(pin != "012962"){
         return res.status(401).json("Invalid PIN")
     }
     const token = jwt.sign({ pin: pin }, authConfig.secret, {

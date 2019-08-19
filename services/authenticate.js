@@ -8,7 +8,7 @@ router.post('/', (req, res) => {
         return res.status(401).json("Invalid PIN")
     }
     const token = jwt.sign({ pin: pin }, authConfig.secret, {
-        expiresIn: 3000
+        expiresIn: 30
     })
 
     if(token){

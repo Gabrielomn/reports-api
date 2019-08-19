@@ -11,7 +11,9 @@ router.post('/', (req, res) => {
         expiresIn: 3000
     })
 
-    res.status(200).send({token})
+    if(token){
+        res.status(200).send({token})
+    }
 })
 
 module.exports = router

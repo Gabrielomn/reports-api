@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
     let mode = req.query['hub.mode']
     let token = req.query['hub.verify_token']
     let challenge = req.query['hub.challenge']
-    console.log(token)
     if(token && mode){
         if(mode=='subscribe' && token == myToken){
             console.log('verified')
@@ -48,7 +47,6 @@ const sendReports = async function(req, res){
     const theme = req.body.entry[0].messaging[0].message.text
     let reports = await repository.getByTheme(theme)
     let response
-    console.log(reports)
     if(reports.length != 0){
         response = replies.carousel
         response.message.attachment.payload.elements = getGenerics(reports)

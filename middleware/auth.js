@@ -9,7 +9,6 @@ module.exports = (req, res, next) => {
     }
 
     const split = authHeader.split(' ')
-    console.log(split)
     if(!(split.length==2)){
         res.status(401).json("token error")
     }
